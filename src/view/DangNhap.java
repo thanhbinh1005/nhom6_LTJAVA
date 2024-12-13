@@ -6,7 +6,6 @@ package view;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.LuuThongTinDao;
 import model.User;
 
 
@@ -16,7 +15,6 @@ import model.User;
  */
 public class DangNhap extends javax.swing.JFrame {
     private ArrayList<User> dsUser = new ArrayList<>();
-    private LuuThongTinDao dao = new LuuThongTinDao();
 
     /**
      * Creates new form DangNhap
@@ -28,13 +26,7 @@ public class DangNhap extends javax.swing.JFrame {
         dsUser.add(new User("binh", "000"));
     }
     
-    public void loadFromFile(){
-        dsUser = dao.docDanhSachUser();
-    }
     
-    public void saveToFile(){
-        dao.ghiDanhSachUser(dsUser);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,7 +192,6 @@ public class DangNhap extends javax.swing.JFrame {
                 return;
             }
         }
-        saveToFile();
         QuanLyCuaHang qly = new  QuanLyCuaHang();
         qly.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
