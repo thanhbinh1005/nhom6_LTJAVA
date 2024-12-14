@@ -19,12 +19,6 @@ CREATE TABLE san_pham(
 	gia_ca decimal(15,2)
 );
 
-CREATE TABLE Manager(
-	Id_quan_ly Nvarchar(50)primary key,
-	ho_ten_quan_ly Nvarchar(50),
-	manager_username Nvarchar(50),
-	manager_password Nvarchar(100)
-);
 
 CREATE TABLE hoa_don(
 	ma_hoa_don Nvarchar(50) primary key,

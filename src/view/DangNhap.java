@@ -66,9 +66,9 @@ public class DangNhap extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lỗi khi tải dữ liệu khách hàng từ CSDL!");
 
         }
-        for (KhachHang khachHang : dsKhachHang) {
-            System.out.println(khachHang);
-        }
+//        for (KhachHang khachHang : dsKhachHang) {
+//            System.out.println(khachHang);
+//        }
     }
     
 
@@ -123,6 +123,11 @@ public class DangNhap extends javax.swing.JFrame {
 
         lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblQuenMatKhau.setText("Quên Mật Khẩu");
+        lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(rdbAdmin);
         rdbAdmin.setText("Admin");
@@ -158,13 +163,13 @@ public class DangNhap extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(48, 48, 48)
                                         .addComponent(rdbAdmin)
                                         .addGap(31, 31, 31)
-                                        .addComponent(rdbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rdbUser)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                         .addComponent(lblQuenMatKhau))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(33, 33, 33)
@@ -179,9 +184,9 @@ public class DangNhap extends javax.swing.JFrame {
                                 .addComponent(btnDangKyTK)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnReset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnExit)))
-                        .addGap(0, 135, Short.MAX_VALUE)))
+                        .addGap(0, 129, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(244, 244, 244)
@@ -209,11 +214,12 @@ public class DangNhap extends javax.swing.JFrame {
                     .addComponent(rdbAdmin)
                     .addComponent(rdbUser))
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogin)
-                    .addComponent(btnReset)
-                    .addComponent(btnExit)
-                    .addComponent(btnDangKyTK))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnReset)
+                        .addComponent(btnExit)
+                        .addComponent(btnDangKyTK)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -256,6 +262,9 @@ public class DangNhap extends javax.swing.JFrame {
             selectedRole = "Admin"; // Nếu chọn Admin
         } else if (rdbUser.isSelected()) {
             selectedRole = "User";  // Nếu chọn User
+        }else {
+            JOptionPane.showMessageDialog(this, "Yêu cầu chọn chức vụ","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
         System.out.println(selectedRole);
         System.out.println(userName);
@@ -282,7 +291,7 @@ public class DangNhap extends javax.swing.JFrame {
                     qlyNguoiDung.setVisible(true);
                 }
                 // Dừng vòng lặp khi tìm thấy người dùng hợp lệ
-                this.setVisible(false);
+//                this.setVisible(false);
                 return;
                 }
         }
@@ -313,6 +322,12 @@ public class DangNhap extends javax.swing.JFrame {
         DangKyTaiKhoan dky = new DangKyTaiKhoan();
         dky.setVisible(true);
     }//GEN-LAST:event_btnDangKyTKActionPerformed
+
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        // TODO add your handling code here:
+        QuenMatKhau sqmk = new QuenMatKhau();
+        sqmk.setVisible(true);
+    }//GEN-LAST:event_lblQuenMatKhauMouseClicked
 
     
 //    private void showTT(){

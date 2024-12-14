@@ -50,9 +50,6 @@ public class KhachHang implements Serializable{
         this.matkhau = matkhau;
     }
 
-    
-
-
     public KhachHang() {
     }
 
@@ -109,15 +106,14 @@ public class KhachHang implements Serializable{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("KhachHang{");
+        sb.append("KhachHang:   ");
         sb.append("maKhachHang=").append(maKhachHang);
-        sb.append(", matkhau=").append(matkhau);
-        sb.append(", hoTenKhachHang=").append(hoTenKhachHang);
-        sb.append(", chucVu=").append(chucVu);
-        sb.append(", gioiTinh=").append(gioiTinh);
-        sb.append(", soDienThoai=").append(soDienThoai);
-        sb.append(", diaChi=").append(diaChi);
-        sb.append('}');
+        sb.append(",  matkhau=").append(matkhau);
+        sb.append(",  hoTenKhachHang=").append(hoTenKhachHang);
+        sb.append(",  chucVu=").append(chucVu);
+        sb.append(",  gioiTinh=").append(gioiTinh);
+        sb.append(",  soDienThoai=").append(soDienThoai);
+        sb.append(",  diaChi=").append(diaChi);
         return sb.toString();
     }
   

@@ -32,4 +32,8 @@ public class ControllerKhachHang {
         return check;
     }
     
+    public void doiMk(String makh,String mk){
+        controllerSQL.datMkMoi(makh, mk);
+    }
+    
 }

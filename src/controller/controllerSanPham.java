@@ -31,4 +31,12 @@ public class controllerSanPham {
         boolean check = controllerSQL.checkMaSP(masp);
         return check;
     }
+    
+    public void giamSoLuong(String maSP,int old, int newSlg){
+        controllerSQL.capNhatSPkhiLuuHD(maSP, old, newSlg);
+    }
+    
+    public void tangSoLuong(String maSP,int old, int newSlg){
+        controllerSQL.capNhatSPkhiXoaHD(maSP, old, newSlg);
+    }
 }

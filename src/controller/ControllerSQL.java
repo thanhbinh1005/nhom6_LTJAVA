@@ -295,5 +295,56 @@ public class ControllerSQL {
         }
     }
 
-
+    //-------------------------------------------------------------------------
+    public void capNhatSPkhiLuuHD(String maSP, int old, int newSlg){
+        String sql = "UPDATE san_pham SET so_luong = ? WHERE ma_san_pham = ?";
+        try (PreparedStatement pst = conn.prepareStatement(sql)){
+            pst.setInt(1, old - newSlg);
+            pst.setString(2, maSP);
+            
+           int rowAffected = pst.executeUpdate(); // lấy dòng bị thay đổi
+            if(rowAffected > 0) // kiểm tra = 1 => đã thay đổi dữ liệu
+                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!", "Lỗi" ,JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi Khi thay đổi số lượng","Lỗi",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void capNhatSPkhiXoaHD(String maSP, int old, int newSlg){
+        String sql = "UPDATE san_pham SET so_luong = ? WHERE ma_san_pham = ?";
+        try (PreparedStatement pst = conn.prepareStatement(sql)){
+            pst.setInt(1, old + newSlg);
+            pst.setString(2, maSP);
+            
+           int rowAffected = pst.executeUpdate(); // lấy dòng bị thay đổi
+            if(rowAffected > 0) // kiểm tra = 1 => đã thay đổi dữ liệu
+                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!", "Lỗi" ,JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi Khi thay đổi số lượng","Lỗi",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    //--------------------------------------------------------------------------------
+    public void datMkMoi(String makh,String mk){
+        String sql = "UPDATE khach_hang Set mat_khau = ? Where ma_khach_hang = ?";
+           try (PreparedStatement pst = conn.prepareStatement(sql)){
+                pst.setString(1, mk);
+                pst.setString(2, makh);
+                
+                int rowAffectd = pst.executeUpdate();
+                if(rowAffectd > 0)
+                    JOptionPane.showMessageDialog(null, "Thành Công");
+                else 
+                    JOptionPane.showMessageDialog(null, "Không Thay Đổi Được");
+              } catch (SQLException e) {
+                  e.printStackTrace();
+                  JOptionPane.showMessageDialog(null, "Lỗi Khi thay đổi Mật Khẩu","Lỗi",JOptionPane.ERROR_MESSAGE);
+         }
+    }
+    
 }

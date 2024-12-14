@@ -26,6 +26,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
      */
     public DangKyTaiKhoan() {
         initComponents();
+        setLocationRelativeTo(null);
         
     }
 
