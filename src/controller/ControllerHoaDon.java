@@ -13,13 +13,6 @@ public class ControllerHoaDon {
         this.controllerSQL = controllerSQL;
     }
 
-//    public void saveHoaDonToDB(HoaDon hoaDon){
-//        if (controllerSQL == null) {
-//            throw new IllegalStateException("controllerSQL is not initialized");
-//        }
-//
-//        controllerSQL.luuHoaDonVaChiTiet(hoaDon);
-//    }
     
     public void saveHoaDon1(HoaDon hoaDon){
         controllerSQL.luuHoaDon(hoaDon);

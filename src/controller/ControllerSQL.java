@@ -14,7 +14,7 @@ public class ControllerSQL {
     boolean check= false;
     
     // lưu thông tin khách hàng vào database
-    public void luuKhachHang(String maKh, String tenKh, String gioiTinh, String sdt, String diaChi){
+    public void luuKhachHang(String maKh, String matkhau, String tenKh, String chucVu, String gioiTinh, String sdt, String diaChi){
         // kiểm tra mã xem trùng khóa chính nào ở trong dsKhachHang đã lưu không
         if(checkMaKh(maKh)) {
             JOptionPane.showMessageDialog(null, "Mã Khách Hàng Đã Tồn Tại","Lỗi",JOptionPane.ERROR_MESSAGE);
@@ -22,13 +22,15 @@ public class ControllerSQL {
             return;
         }
         
-        String sql = "INSERT INTO khach_hang (ma_khach_hang,ho_ten,gioi_tinh,so_dien_thoai,dia_chi) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO khach_hang (ma_khach_hang,mat_khau,ho_ten,chuc_vu,gioi_tinh,so_dien_thoai,dia_chi) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement pst = conn.prepareStatement(sql)){// hàm chuyên dùng để thực hiện select, update, delete
             pst.setString(1, maKh);
-            pst.setString(2, tenKh);
-            pst.setString(3, gioiTinh);
-            pst.setString(4, sdt);
-            pst.setString(5, diaChi);
+            pst.setString(2, matkhau);
+            pst.setString(3, tenKh);
+            pst.setString(4, chucVu);
+            pst.setString(5, gioiTinh);
+            pst.setString(6, sdt);
+            pst.setString(7, diaChi);
             pst.executeUpdate(); // lệnh thực thi câu lệnh
             JOptionPane.showMessageDialog(null, "Khách Hàng Đã Được Thêm!");
         } catch (SQLException e) {
@@ -60,20 +62,21 @@ public class ControllerSQL {
     }
     
     //sửa thông tin khách hàng trong database
-    public void suaKhachHang(String maKh, String tenKh, String gioiTinh, String sdt, String diaChi){
+    public void suaKhachHang(String maKh, String matkhau, String tenKh, String gioiTinh, String sdt, String diaChi){
         if(maKh.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Mã khách Hàng Trống","Lỗi",JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        String sql = "UPDATE khach_hang SET ho_ten = ?,gioi_tinh = ?, so_dien_thoai = ?, dia_chi = ? WHERE ma_khach_hang = ?";
+        String sql = "UPDATE khach_hang SET ho_ten = ?,gioi_tinh = ?, so_dien_thoai = ?, dia_chi = ?,mat_khau = ? WHERE ma_khach_hang = ?";
         try (PreparedStatement pst = conn.prepareStatement(sql)){
             
             pst.setString(1, tenKh);
             pst.setString(2, gioiTinh);
             pst.setString(3, sdt);
             pst.setString(4, diaChi);
-            pst.setString(5, maKh);
+            pst.setString(5, matkhau);
+            pst.setString(6, maKh);
             int row = pst.executeUpdate();// leệnh thực thi câu lệnh sql
             if(row > 0) {
                 JOptionPane.showMessageDialog(null, "Khách Hàng Đã Được Sửa!","Thành Công",JOptionPane.INFORMATION_MESSAGE);

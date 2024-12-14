@@ -4,9 +4,14 @@
  */
 package view;
 
-import java.util.ArrayList;
+import controller.ControllerKhachHang;
 import javax.swing.JOptionPane;
-import model.User;
+import java.sql.*;
+import database.DBConnection;
+import java.util.ArrayList;
+import javax.swing.JTextField;
+import model.KhachHang;
+import view.QuanLyCuaHang;
 
 
 /**
@@ -14,7 +19,12 @@ import model.User;
  * @author Admin
  */
 public class DangNhap extends javax.swing.JFrame {
-    private ArrayList<User> dsUser = new ArrayList<>();
+    private ControllerKhachHang ctlerKhachHang = new ControllerKhachHang();
+    private Connection conn = DBConnection.connect();
+    private QuanLyCuaHang qly = new QuanLyCuaHang();
+    private ArrayList<KhachHang> dsKhachHang = qly.getDsKhachHang();
+    public static String currentMaKhachHang = "";
+    
 
     /**
      * Creates new form DangNhap
@@ -22,11 +32,46 @@ public class DangNhap extends javax.swing.JFrame {
     public DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
-        dsUser.add(new User("canh", "123456"));
-        dsUser.add(new User("binh", "000"));
+        loadKhachHangFromDB();
+        
+        
+    }
+
+    public String getTxtUsername() {
+        return txtUsername.getText().trim();
     }
     
     
+    public void loadKhachHangFromDB(){
+        
+//        ArrayList<KhachHang> dsKhachHang = qly.getDsKhachHang();
+        dsKhachHang.clear();
+        String sql = "SELECT * FROM khach_hang";
+        try (Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                String makh = rs.getString("ma_khach_hang");
+                String matKhau = rs.getString("mat_khau");
+                String tenkh = rs.getString("ho_ten");
+                String chucVu = rs.getString("chuc_vu");
+                String gioiTinh = rs.getString("gioi_tinh");
+                String sdt = rs.getString("so_dien_thoai");
+                String diaChi = rs.getString("dia_chi");
+                
+                dsKhachHang.add(new KhachHang(makh, matKhau, tenkh, chucVu, gioiTinh, sdt, diaChi));
+            }
+            System.out.println("Tai Du Lieu Thanh Cong");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi tải dữ liệu khách hàng từ CSDL!");
+
+        }
+        for (KhachHang khachHang : dsKhachHang) {
+            System.out.println(khachHang);
+        }
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +82,7 @@ public class DangNhap extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -46,7 +92,11 @@ public class DangNhap extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
-        cbxRememberme = new javax.swing.JCheckBox();
+        lblQuenMatKhau = new javax.swing.JLabel();
+        rdbAdmin = new javax.swing.JRadioButton();
+        rdbUser = new javax.swing.JRadioButton();
+        btnDangKyTK = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,10 +121,26 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-        cbxRememberme.setText("Remember me?");
-        cbxRememberme.addActionListener(new java.awt.event.ActionListener() {
+        lblQuenMatKhau.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        lblQuenMatKhau.setText("Quên Mật Khẩu");
+
+        buttonGroup1.add(rdbAdmin);
+        rdbAdmin.setText("Admin");
+
+        buttonGroup1.add(rdbUser);
+        rdbUser.setText("User");
+
+        btnDangKyTK.setText("Sign up");
+        btnDangKyTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxRemembermeActionPerformed(evt);
+                btnDangKyTKActionPerformed(evt);
+            }
+        });
+
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -83,46 +149,51 @@ public class DangNhap extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(jSeparator1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(cbxRememberme))
+                                        .addGap(48, 48, 48)
+                                        .addComponent(rdbAdmin)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(rdbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblQuenMatKhau))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(btnLogin)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(btnReset)))
-                                .addContainerGap(166, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(109, 109, 109))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(109, 109, 109))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
+                                        .addGap(33, 33, 33)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtPassword)
+                                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)))))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(btnLogin)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDangKyTK)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnReset)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExit)))
+                        .addGap(0, 135, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(198, 198, 198)
+                .addGap(244, 244, 244)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(26, 26, 26)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,12 +204,17 @@ public class DangNhap extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(cbxRememberme)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuenMatKhau)
+                    .addComponent(rdbAdmin)
+                    .addComponent(rdbUser))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
-                    .addComponent(btnReset))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(btnReset)
+                    .addComponent(btnExit)
+                    .addComponent(btnDangKyTK))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,14 +234,11 @@ public class DangNhap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxRemembermeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRemembermeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxRemembermeActionPerformed
-
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         
-        String userName = txtUsername.getText();
+        String userName = txtUsername.getText().trim();
         String passWord = new String(txtPassword.getPassword());
         
         StringBuilder sb = new StringBuilder();
@@ -178,22 +251,47 @@ public class DangNhap extends javax.swing.JFrame {
             return;
         }
         
-        for (User user : dsUser) {
-            if(userName.equals(user.getUserName()) && passWord.equals(user.getPassWord())) {
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
-                break;
-//                if(cbxRememberme.isSelected()) {
-//                    rememName = userName;
-//                    rememPass = passWord;
-//                    JOptionPane.showMessageDialog(this, "Thông tin đã được nhớ!");
-//                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Tên Đăn Nhập Hoặc Tài Khoản Không Hợp Lệ","Error",JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        String selectedRole = "";
+        if (rdbAdmin.isSelected()) {
+            selectedRole = "Admin"; // Nếu chọn Admin
+        } else if (rdbUser.isSelected()) {
+            selectedRole = "User";  // Nếu chọn User
         }
-        QuanLyCuaHang qly = new  QuanLyCuaHang();
-        qly.setVisible(true);
+        System.out.println(selectedRole);
+        System.out.println(userName);
+        System.out.println(passWord);
+        boolean isLoggedIn = false;
+
+        for (KhachHang user : dsKhachHang) {
+            System.out.println("Checking user: " + user.getMaKhachHang());
+
+            if (userName.trim().equals(user.getMaKhachHang().trim()) &&
+                passWord.trim().equals(user.getMatkhau().trim()) &&
+                user.getChucVu().trim().equalsIgnoreCase(selectedRole)) {
+
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                currentMaKhachHang = user.getMaKhachHang();
+                isLoggedIn = true;
+                if(user.getChucVu().trim().equalsIgnoreCase("Admin")) {
+                    QuanLyCuaHang qly = new QuanLyCuaHang();
+                    qly.setVisible(true);
+                }
+                // Nếu là User, chuyển đến Quản Lý Người Dùng
+                else if(user.getChucVu().trim().equalsIgnoreCase("User")) {
+                    QuanLyNguoiDung qlyNguoiDung = new QuanLyNguoiDung();
+                    qlyNguoiDung.setVisible(true);
+                }
+                // Dừng vòng lặp khi tìm thấy người dùng hợp lệ
+                this.setVisible(false);
+                return;
+                }
+        }
+
+        if (!isLoggedIn) {
+            JOptionPane.showMessageDialog(this, "Tên Đăng Nhập Hoặc Mật Khẩu Không Hợp Lệ", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -201,6 +299,20 @@ public class DangNhap extends javax.swing.JFrame {
         txtPassword.setText("");
         txtUsername.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        int choice = JOptionPane.showConfirmDialog(this, "Do you want to exit","",JOptionPane.YES_NO_OPTION);
+        if(choice == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnDangKyTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyTKActionPerformed
+        // TODO add your handling code here:
+        DangKyTaiKhoan dky = new DangKyTaiKhoan();
+        dky.setVisible(true);
+    }//GEN-LAST:event_btnDangKyTKActionPerformed
 
     
 //    private void showTT(){
@@ -243,14 +355,19 @@ public class DangNhap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangKyTK;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnReset;
-    private javax.swing.JCheckBox cbxRememberme;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblQuenMatKhau;
+    private javax.swing.JRadioButton rdbAdmin;
+    private javax.swing.JRadioButton rdbUser;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
