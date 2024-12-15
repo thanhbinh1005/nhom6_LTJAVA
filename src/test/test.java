@@ -4,7 +4,8 @@
  */
 package test;
 
-import view.QuanLyCuaHang;
+import view.Login.DangNhap;
+import view.Admin.QuanLyCuaHang;
 
 /**
  *
@@ -12,7 +13,7 @@ import view.QuanLyCuaHang;
  */
 public class test {
     public static void main(String[] args) {
-        QuanLyCuaHang jf = new QuanLyCuaHang();
+        DangNhap jf = new DangNhap();
         jf.setVisible(true);
     }
 }

@@ -1,4 +1,4 @@
-CREATE DATABASE quanlycuahang;
+﻿CREATE DATABASE quanlycuahang;
 go
 USE quanlycuahang;
 
@@ -48,6 +48,7 @@ CREATE TABLE chi_tiet_hoa_don (
 	select * from hoa_don;
 	select * from chi_tiet_hoa_don;
 
+	update khach_hang set gioi_tinh = N'Nữ' where ma_khach_hang = '2';
 
 
 select h.ma_hoa_don,h.ngay_lap,h.tong_tien,

@@ -30,7 +30,7 @@ public class ControllerKho {
             }
 
             // Kiểm tra số lượng
-            if (soluongMin > 0 && sanPham.getSoLuong() < soluongMin) {
+            if (soluongMin >= 0 && sanPham.getSoLuong() < soluongMin) {
                 matches = false;
             }
             if (soluongMax > 0 && sanPham.getSoLuong() > soluongMax) {
