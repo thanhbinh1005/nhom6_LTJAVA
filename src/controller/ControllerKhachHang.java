@@ -24,7 +24,10 @@ public class ControllerKhachHang {
     }
     
     public void updateKhachHangToDB(String maKhachHang, String matkhau, String hoTenKhachHang, String gioiTinh, String soDienThoai, String diaChi){
-        controllerSQL.suaKhachHang(maKhachHang, matkhau,hoTenKhachHang, gioiTinh, soDienThoai, diaChi);
+        controllerSQL.updateKhachHangToDB(maKhachHang, matkhau,hoTenKhachHang, gioiTinh, soDienThoai, diaChi);
+    }
+    public void upadteMk(String maKhachHang, String matkhau){
+        controllerSQL.upadteMk(maKhachHang, matkhau);
     }
     
     public boolean checkTrungMaKH(String makh){
@@ -32,8 +35,18 @@ public class ControllerKhachHang {
         return check;
     }
     
+    public boolean  checkTK(String makh, String mk){
+        boolean check = controllerSQL.checkTaiKhoan(makh, mk);
+        return check;
+    }
+    
+    public boolean  checkTkvaMK(String makh, String role){
+        boolean check = controllerSQL.checkTonTai(makh, role);
+        return check;
+    }
+    
     public void doiMk(String makh,String mk){
-        controllerSQL.datMkMoi(makh, mk);
+        controllerSQL.upadteMk(makh, mk);
     }
     
 }

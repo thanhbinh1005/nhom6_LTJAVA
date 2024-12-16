@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/view/Login/QuenMatKhau.java</file>
-            <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/test/test.java</file>
-            <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/controller/controllerSanPham.java</file>
             <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/view/Admin/QuanLyCuaHang.java</file>
             <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/view/Login/DangNhap.java</file>
+            <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/controller/ControllerHoaDon.java</file>
+            <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/view/Login/DangKyTaiKhoan.java</file>
             <file>file:/E:/JAVA/BTAP_JAVA/BTL/BTL/src/view/User/QuanLyNguoiDung.java</file>
         </group>
     </open-files>

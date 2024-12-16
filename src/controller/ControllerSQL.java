@@ -18,7 +18,6 @@ public class ControllerSQL {
         // kiểm tra mã xem trùng khóa chính nào ở trong dsKhachHang đã lưu không
         if(checkMaKh(maKh)) {
             JOptionPane.showMessageDialog(null, "Mã Khách Hàng Đã Tồn Tại","Lỗi",JOptionPane.ERROR_MESSAGE);
-            
             return;
         }
         
@@ -62,7 +61,7 @@ public class ControllerSQL {
     }
     
     //sửa thông tin khách hàng trong database
-    public void suaKhachHang(String maKh, String matkhau, String tenKh, String gioiTinh, String sdt, String diaChi){
+    public void updateKhachHangToDB(String maKh, String matkhau, String tenKh, String gioiTinh, String sdt, String diaChi){
         if(maKh.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Mã khách Hàng Trống","Lỗi",JOptionPane.ERROR_MESSAGE);
             return;
@@ -75,6 +74,28 @@ public class ControllerSQL {
             pst.setString(2, gioiTinh);
             pst.setString(3, sdt);
             pst.setString(4, diaChi);
+            pst.setString(5, matkhau);
+            pst.setString(6, maKh);
+            int row = pst.executeUpdate();// leệnh thực thi câu lệnh sql
+            if(row > 0) {
+                JOptionPane.showMessageDialog(null, "Khách Hàng Đã Được Sửa!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            } else
+                JOptionPane.showMessageDialog(null, "Không Tìm Thấy Khách Hàng Trong Danh Sách Bộ Nhớ!","Lỗi",JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi Khi Sửa Khách Hàng!","Lỗi",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void suaMK(String maKh, String matkhau, String tenKh){
+        if(maKh.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Mã khách Hàng Trống","Lỗi",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String sql = "UPDATE khach_hang SET mat_khau = ? WHERE ma_khach_hang = ?";
+        try (PreparedStatement pst = conn.prepareStatement(sql)){
+            
             pst.setString(5, matkhau);
             pst.setString(6, maKh);
             int row = pst.executeUpdate();// leệnh thực thi câu lệnh sql
@@ -102,6 +123,51 @@ public class ControllerSQL {
         return false;
     }
     
+    public boolean checkTaiKhoan(String makh,String matkhau){
+        String sql = "SELECT COUNT(*) FROM khach_hang WHERE ma_khach_hang = ? AND mat_khau = ?";// viết câu lệnh thực thi
+        try (PreparedStatement pst = conn.prepareStatement(sql)){// hàm chuyên dùng để thực hiện select, update, delete
+            pst.setString(1, makh);
+            pst.setString(2, matkhau);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())
+                return rs.getInt(1) > 0;// Nếu có bản ghi tồn tại, trả về true = 0
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean checkTonTai(String makh,String role){
+        String sql = "SELECT COUNT(*) FROM khach_hang WHERE ma_khach_hang = ? AND chuc_vu = ?";// viết câu lệnh thực thi
+        try (PreparedStatement pst = conn.prepareStatement(sql)){// hàm chuyên dùng để thực hiện select, update, delete
+            pst.setString(1, makh);
+            pst.setString(2, role);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())
+                return rs.getInt(1) > 0;// Nếu có bản ghi tồn tại, trả về true = 0
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+        public void upadteMk(String makh,String mk){
+        String sql = "UPDATE khach_hang Set mat_khau = ? Where ma_khach_hang = ?";
+           try (PreparedStatement pst = conn.prepareStatement(sql)){
+                pst.setString(1, mk);
+                pst.setString(2, makh);
+                
+                int rowAffectd = pst.executeUpdate();
+                if(rowAffectd > 0)
+                    JOptionPane.showMessageDialog(null, "Thành Công");
+                else 
+                    JOptionPane.showMessageDialog(null, "Không Thay Đổi Được");
+              } catch (SQLException e) {
+                  e.printStackTrace();
+                  JOptionPane.showMessageDialog(null, "Lỗi Khi thay đổi Mật Khẩu","Lỗi",JOptionPane.ERROR_MESSAGE);
+         }
+    }
+    
     //--------------------------------------------------------------------------------------------------------------------------------------
     
     //Lưu thông tin sản phẩm vào database
@@ -111,6 +177,10 @@ public class ControllerSQL {
             return;
         }
         
+        if(checkMaSP(maSp)){
+            JOptionPane.showMessageDialog(null, "Mã Sản Phẩm Đã Tồn Tại","Lỗi",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String sql = "INSERT INTO san_pham (ma_san_pham,ten_san_pham,so_luong,gia_ca)VALUES (?,?,?,?)";// viết câu lệnh thực thi
         try (PreparedStatement pst = conn.prepareStatement(sql)){// hàm chuyên dùng để thực hiện select, update, delete
             pst.setString(1, maSp);
@@ -174,7 +244,7 @@ public class ControllerSQL {
     }
     
     public boolean checkMaSP(String masp){
-        String sql = "SELECT * FROM san_pham WHERE ma_san_pham = ?";
+        String sql = "SELECT COUNT(*) FROM san_pham WHERE ma_san_pham = ?";
         try (PreparedStatement pst = conn.prepareStatement(sql)){
             pst.setString(1, masp);
             ResultSet rs = pst.executeQuery();
@@ -330,21 +400,6 @@ public class ControllerSQL {
         }
     }
     //--------------------------------------------------------------------------------
-    public void datMkMoi(String makh,String mk){
-        String sql = "UPDATE khach_hang Set mat_khau = ? Where ma_khach_hang = ?";
-           try (PreparedStatement pst = conn.prepareStatement(sql)){
-                pst.setString(1, mk);
-                pst.setString(2, makh);
-                
-                int rowAffectd = pst.executeUpdate();
-                if(rowAffectd > 0)
-                    JOptionPane.showMessageDialog(null, "Thành Công");
-                else 
-                    JOptionPane.showMessageDialog(null, "Không Thay Đổi Được");
-              } catch (SQLException e) {
-                  e.printStackTrace();
-                  JOptionPane.showMessageDialog(null, "Lỗi Khi thay đổi Mật Khẩu","Lỗi",JOptionPane.ERROR_MESSAGE);
-         }
-    }
+
     
 }

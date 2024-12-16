@@ -46,7 +46,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                           <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
@@ -75,10 +75,10 @@
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="btnLuuKhachHang" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnLuuKhachHang" min="-2" pref="95" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnResetKH" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Component id="btnResetKH" min="-2" pref="87" max="-2" attributes="0"/>
                               </Group>
                               <Component id="cbxGioiTinh" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtSDT" alignment="0" pref="282" max="32767" attributes="0"/>
@@ -144,7 +144,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xe3; Kh&#xe1;ch H&#xe0;ng"/>
+            <Property name="text" type="java.lang.String" value="T&#xea;n &#x110;&#x103;ng Nh&#x1ead;p"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -183,7 +183,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Th&#xf4;ng Tin Kh&#xe1;ch H&#xe0;ng"/>
+            <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng K&#xfd; T&#xe0;i Kho&#x1ea3;n"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">

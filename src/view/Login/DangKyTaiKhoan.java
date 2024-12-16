@@ -60,7 +60,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel9.setText("Mã Khách Hàng");
+        jLabel9.setText("Tên Đăng Nhập");
 
         jLabel10.setText("Họ Tên");
 
@@ -76,7 +76,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel7.setText("Thông Tin Khách Hàng");
+        jLabel7.setText("Đăng Ký Tài Khoản");
 
         jLabel13.setText("Giới Tính");
 
@@ -107,7 +107,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(105, 105, 105)
+                        .addGap(122, 122, 122)
                         .addComponent(btnReturn)
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -128,10 +128,10 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnLuuKhachHang)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(btnLuuKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnResetKH, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnResetKH, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cbxGioiTinh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                             .addComponent(txtHoTenKH, javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +196,6 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
     private void btnLuuKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuKhachHangActionPerformed
         // Lấy dữ liệu từ các txt nhập
-
         String maKhachHang = txtMaKH.getText().trim();
         String hoTenKhachHang = txtHoTenKH.getText().trim();
         String chucVu = "User";
@@ -204,56 +203,42 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
         String soDienThoai = txtSDT.getText().trim();
         String diaChi = txtDiaChi.getText().trim();
         String matKhau = txtMatKhau.getText().trim();
-//        String nhapLaiMatKhau = txtNhaplaiMatKhau.getText().trim();
 
         // Tạo đối tượng StringBuilder để lưu thông báo lỗi và check lỗi ô trống khi lưu
         StringBuilder sb = new StringBuilder();
         if(maKhachHang.equals("")){
-            sb.append("Thieu Ma Khach Hang!\n");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!\n");
             txtMaKH.setBackground(Color.red);
         } else
         txtMaKH.setBackground(Color.white);
         if(hoTenKhachHang.equals("")){
-            sb.append("Thieu Ho Ten !\n");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!\n");
             txtHoTenKH.setBackground(Color.red);
         } else
         txtHoTenKH.setBackground(Color.white);
         if(soDienThoai.equals("")){
-            sb.append("Thieu SDT !\n");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!\n");
             txtSDT.setBackground(Color.red);
         } else
         txtSDT.setBackground(Color.white);
         if(diaChi.equals("")){
-            sb.append("Thieu Dia Chi!\n");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!\n");
             txtDiaChi.setBackground(Color.red);
         } else
         txtDiaChi.setBackground(Color.white);
         if(matKhau.equals("")){
-            sb.append("Thieu MậT Khẩu !\n");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!\n");
             txtMatKhau.setBackground(Color.red);
         } else
-        txtMatKhau.setBackground(Color.white);
-//        if(nhapLaiMatKhau.equalsIgnoreCase(matKhau)){
-//            sb.append("Mật Khẩu Không Trùng Khớp!\n");
-//            txtNhaplaiMatKhau.setText("");
-//        } else {
-//            txtNhaplaiMatKhau.setBackground(Color.white);
-//            txtMatKhau.setBackground(Color.white);
-//        }
-
+        txtMatKhau.setBackground(Color.white);       
         if(sb.length()>0){
-            JOptionPane.showMessageDialog(this, sb.toString(),"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ và chính xác thông tin!","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if(ctlerKhachHang.checkTrungMaKH(maKhachHang)) {
             JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
             txtMaKH.setText("");
-//            txtHoTenKH.setText("");
-//            txtDiaChi.setText("");
-//            txtSDT.setText("");
-//            txtMatKhau.setText("");
-//            txtNhaplaiMatKhau.setText("");
             return;
         }
         //lưu vào trong database sql
@@ -271,11 +256,6 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
         txtDiaChi.setText("");
         txtSDT.setText("");
         txtMatKhau.setText("");
-        
-//        for (KhachHang khachHang : dsKhachHang) {
-//            System.out.println(khachHang);
-//        }
-        //        System.out.println(kh);
     }//GEN-LAST:event_btnLuuKhachHangActionPerformed
 
     private void btnResetKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetKHActionPerformed

@@ -16,7 +16,7 @@ public class controllerSanPham {
     }
     
     public void saveSanPhamToDB(String maSp, String tenSp, int soluong, double gia) {
-        controllerSQL.luuSanPham( maSp,  tenSp,  soluong,  gia);
+        controllerSQL.luuSanPham(maSp,tenSp,soluong,gia);
     }
     
     public void deleteSanPhamToDB(String makh){

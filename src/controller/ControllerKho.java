@@ -50,7 +50,6 @@ public class ControllerKho {
                 ketQua.add(sanPham);
             }
         }
-
         return ketQua;
     }
     

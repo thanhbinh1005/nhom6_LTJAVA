@@ -25,4 +25,9 @@ public class ControllerHoaDon {
     public void deleteHoaDon(String mahoadon){
      controllerSQL.deleteHoaDon(mahoadon);
     }
+    
+    public boolean checkMaHoaDon(String mahoadon){
+        boolean check = controllerSQL.kiemTraMaHoaDon(mahoadon);
+        return check;
+    }
 }

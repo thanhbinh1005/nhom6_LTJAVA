@@ -6,6 +6,9 @@ package view.Login;
 
 import view.Admin.QuanLyCuaHang;
 import controller.ControllerKhachHang;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.KhachHang;
@@ -18,6 +21,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private QuanLyCuaHang qly = new QuanLyCuaHang();
     private ArrayList<KhachHang> dsKhachHang = qly.getDsKhachHang();
     private ControllerKhachHang ctlerkh = new ControllerKhachHang();
+    private String makh;
     
 
     /**
@@ -26,6 +30,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
     public QuenMatKhau() {
         initComponents();
         setLocationRelativeTo(null);
+        txtHoTen.setVisible(false);
+        txtTenNguoiDungORXacNhan.setVisible(false);
+        btnDoiMK.setVisible(false);
     }
 
     /**
@@ -39,18 +46,13 @@ public class QuenMatKhau extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTenTk = new javax.swing.JLabel();
+        txtHoTen = new javax.swing.JLabel();
         txtTenTaiKhoan = new javax.swing.JTextField();
-        txtTenNguoiDung = new javax.swing.JTextField();
-        txtMatKhauMoi = new javax.swing.JTextField();
+        txtTenNguoiDungORXacNhan = new javax.swing.JTextField();
         btnXacNhanSua = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
         btnDoiMK = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtMatKhau = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         rdbAdmin = new javax.swing.JRadioButton();
         rdbUser = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -60,14 +62,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Lấy Lại Mật Khẩu");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setText("Tên Tài Khoản");
+        lblTenTk.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lblTenTk.setText("Tên Tài Khoản");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setText("Họ Tên");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Mật Khẩu Mới");
+        txtHoTen.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtHoTen.setText("Họ Tên");
 
         btnXacNhanSua.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnXacNhanSua.setText("Xác Nhận");
@@ -93,12 +92,6 @@ public class QuenMatKhau extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Mật Khẩu Hiện Tại");
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        jLabel6.setText("(*)Nhập mật khẩu mới nếu thay đổi ");
-
         buttonGroup1.add(rdbAdmin);
         rdbAdmin.setText("Admin");
 
@@ -111,47 +104,36 @@ public class QuenMatKhau extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(87, 87, 87)
-                        .addComponent(btnQuayLai)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(btnXacNhanSua)
-                        .addGap(141, 141, 141))))
+                .addComponent(jLabel1)
+                .addGap(100, 100, 100)
+                .addComponent(btnQuayLai)
+                .addGap(16, 16, 16))
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4))
-                            .addGap(24, 24, 24)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                    .addComponent(txtMatKhauMoi))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(50, 50, 50)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(rdbAdmin)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(91, 91, 91)
-                                    .addComponent(rdbUser))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(txtTenNguoiDung))))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                                    .addComponent(lblTenTk, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                    .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rdbAdmin)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(91, 91, 91)
+                                        .addComponent(rdbUser))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(txtTenNguoiDungORXacNhan))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXacNhanSua)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,12 +144,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
                     .addComponent(btnQuayLai))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblTenTk)
                     .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTenNguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHoTen)
+                    .addComponent(txtTenNguoiDungORXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbUser)
@@ -176,19 +158,9 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMatKhauMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDoiMK)
                     .addComponent(btnXacNhanSua))
-                .addGap(20, 20, 20))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -202,57 +174,33 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private void btnDoiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiMKActionPerformed
         // TODO add your handling code here:
         String tentk = txtTenTaiKhoan.getText().trim();
-        String hoten = txtTenNguoiDung.getText().trim();
-        String mkmoi = txtMatKhauMoi.getText().trim();
+        String hoten = txtTenNguoiDungORXacNhan.getText().trim();
         StringBuilder sb = new StringBuilder();
         
         if(tentk.equals(""))
-            sb.append("Thiếu Tên Tài Khoản (Mã Khách Hàng)");
-        if(hoten.equals(""))
-            sb.append("Thiếu Họ Tên Người Dùng");
-        if(mkmoi.equals(""))
-            sb.append("Nhập Mật Khẩu Mới Trước Khi Lưu");
+            sb.append("Nhập Mật Khẩu Mới\n");
+        if(!hoten.equalsIgnoreCase(tentk))
+            sb.append("Mật Khẩu Không Trùng Khớp");
         if(sb.length()>0) {
             JOptionPane.showMessageDialog(this, sb.toString(),"Error",JOptionPane.ERROR_MESSAGE);
             return;
         } 
         
-        String selectedRole = "";
-        if (rdbAdmin.isSelected()) {
-            selectedRole = "Admin"; // Nếu chọn Admin
-        } else if (rdbUser.isSelected()) {
-            selectedRole = "User";  // Nếu chọn User
-        }else {
-            JOptionPane.showMessageDialog(this, "Yêu cầu chọn chức vụ","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        System.out.println(tentk);
-        boolean check = false;
-        for (KhachHang khachHang : dsKhachHang) {
-            if(khachHang.getChucVu().equals(selectedRole)) {
-                if(khachHang.getHoTenKhachHang().equals(hoten) && khachHang.getMaKhachHang().equals(tentk)) {
-                    ctlerkh.doiMk(tentk, mkmoi);
-                    check = true;
-                    break;
-                }
-            }
-        }
-        if(!check){
-           JOptionPane.showMessageDialog(this, "Tên Tài Khoản Hoặc Họ Tên Không Hợp lệ!","Lỗi",JOptionPane.ERROR_MESSAGE);
-           return;
-        }
+        ctlerkh.upadteMk(makh, hoten);
+        
+        qly.loadKhachHangFromDB();
+        this.dispose();
     }//GEN-LAST:event_btnDoiMKActionPerformed
 
     private void btnXacNhanSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanSuaActionPerformed
         // TODO add your handling code here:
         String tentk = txtTenTaiKhoan.getText().trim();
-        String hoten = txtTenNguoiDung.getText().trim();
+//        String hoten = txtTenNguoiDungORXacNhan.getText().trim();
         StringBuilder sb = new StringBuilder();
         
         if(tentk.equals(""))
-            sb.append("Thiếu Tên Tài Khoản (Mã Khách Hàng)");
-        if(hoten.equals(""))
-            sb.append("Thiếu Họ Tên Người Dùng");
+            sb.append("Vui lòng nhập đầy đủ và chính xác thông tin!");
+
         if(sb.length()>0) {
             JOptionPane.showMessageDialog(this, sb.toString(),"Error",JOptionPane.ERROR_MESSAGE);
             return;
@@ -268,20 +216,21 @@ public class QuenMatKhau extends javax.swing.JFrame {
             return;
         }
         
-        boolean check = false;
-        for (KhachHang khachHang : dsKhachHang) {
-            if(khachHang.getChucVu().equals(selectedRole)) {
-                if(khachHang.getHoTenKhachHang().equals(hoten) && khachHang.getMaKhachHang().equals(tentk)) {
-                    txtMatKhau.setText(khachHang.getMatkhau());
-                    check = true;
-                    break;
-                }
-            }
-        }
-        if(!check){
-           JOptionPane.showMessageDialog(this, "Tên Tài Khoản Hoặc Họ Tên Không Hợp lệ!","Lỗi",JOptionPane.ERROR_MESSAGE);
-           return;
-        }
+        
+        boolean check = ctlerkh.checkTkvaMK(tentk,selectedRole);
+        if(check == true) {
+            makh = tentk;
+            lblTenTk.setText("Mật Khẩu Mới");
+            txtHoTen.setText("Xác Nhận Mật Khẩu");
+            txtTenTaiKhoan.setText("");
+            txtHoTen.setVisible(true);
+            txtTenNguoiDungORXacNhan.setVisible(true);
+            btnXacNhanSua.setVisible(false);
+            rdbUser.setVisible(false);
+            rdbAdmin.setVisible(false);
+            btnDoiMK.setVisible(true);
+        }else
+            JOptionPane.showMessageDialog(this, "Tài khoản Không Tồn Tại");
     }//GEN-LAST:event_btnXacNhanSuaActionPerformed
 
     /**
@@ -325,17 +274,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private javax.swing.JButton btnXacNhanSua;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblTenTk;
     private javax.swing.JRadioButton rdbAdmin;
     private javax.swing.JRadioButton rdbUser;
-    private javax.swing.JTextField txtMatKhau;
-    private javax.swing.JTextField txtMatKhauMoi;
-    private javax.swing.JTextField txtTenNguoiDung;
+    private javax.swing.JLabel txtHoTen;
+    private javax.swing.JTextField txtTenNguoiDungORXacNhan;
     private javax.swing.JTextField txtTenTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

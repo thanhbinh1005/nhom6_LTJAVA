@@ -108,7 +108,7 @@ public class DangNhap extends javax.swing.JFrame {
                 btnExitActionPerformed(evt);
             }
         });
-        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        getContentPane().add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
         btnDangKyTK.setText("Sign up");
         btnDangKyTK.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,7 @@ public class DangNhap extends javax.swing.JFrame {
                 btnDangKyTKActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDangKyTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
+        getContentPane().add(btnDangKyTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class DangNhap extends javax.swing.JFrame {
                 btnResetActionPerformed(evt);
             }
         });
-        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
+        getContentPane().add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class DangNhap extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
         buttonGroup1.add(rdbAdmin);
         rdbAdmin.setText("Admin");
@@ -157,13 +157,13 @@ public class DangNhap extends javax.swing.JFrame {
                 txtPasswordMouseClicked(evt);
             }
         });
-        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 257, -1));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 130, 250, -1));
 
         jLabel3.setText("Password");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 50, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 60, -1));
 
         jLabel2.setText("Username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 60, -1));
 
         txtUsername.setText("Mã Khách Hàng....");
         txtUsername.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -171,11 +171,11 @@ public class DangNhap extends javax.swing.JFrame {
                 txtUsernameMouseClicked(evt);
             }
         });
-        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 257, -1));
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 90, 250, -1));
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 36)); // NOI18N
         jLabel1.setText("LOG In ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 380, 10));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/GiaoDienDangNhap.png"))); // NOI18N
@@ -188,12 +188,12 @@ public class DangNhap extends javax.swing.JFrame {
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        loadKhachHangFromDB();
+        loadKhachHangFromDB(); // load dữ liệu từ database 
         
-        String userName = txtUsername.getText().trim();
-        String passWord = new String(txtPassword.getPassword());
+        String userName = txtUsername.getText().trim();// lấy dữ liệu tên đăng nhập tử text
+        String passWord = new String(txtPassword.getPassword()); //lấy dữ liệu tên đăng nhập tử passfield
         
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); // kiểm tra xem có dữ liệu nhập ở text không
         if(userName.equals(""))
             sb.append("Username is empty!\n");
         if(passWord.equals(""))
@@ -208,45 +208,44 @@ public class DangNhap extends javax.swing.JFrame {
             selectedRole = "Admin"; // Nếu chọn Admin
         } else if (rdbUser.isSelected()) {
             selectedRole = "User";  // Nếu chọn User
-        }else {
+        }else { // kiểm tra chức vụ đã chọn chưa
             JOptionPane.showMessageDialog(this, "Yêu cầu chọn chức vụ","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        System.out.println(selectedRole);
-        System.out.println(userName);
-        System.out.println(passWord);
-        boolean isLoggedIn = false;
+        
+        ctlerKhachHang.checkTK(userName, passWord); // kiểm tra khách hàng có tồn tại trong database không
 
+        boolean isLoggedIn = false;
         for (KhachHang user : dsKhachHang) {
             System.out.println("Checking user: " + user.getMaKhachHang());
 
             if (userName.trim().equals(user.getMaKhachHang().trim()) &&
                 passWord.trim().equals(user.getMatkhau().trim()) &&
-                user.getChucVu().trim().equalsIgnoreCase(selectedRole)) {
+                user.getChucVu().trim().equalsIgnoreCase(selectedRole)) { // kiểm tra dữ liệu đã nhập đủ và đúng chưa
 
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 currentMaKhachHang = user.getMaKhachHang();
                 isLoggedIn = true;
                 if(user.getChucVu().trim().equalsIgnoreCase("Admin")) {
                     QuanLyCuaHang qly = new QuanLyCuaHang();
-                    qly.setVisible(true);
+                    qly.setVisible(true);// mở menu Admin
+                    this.setVisible(false);
                 }
                 // Nếu là User, chuyển đến Quản Lý Người Dùng
                 else if(user.getChucVu().trim().equalsIgnoreCase("User")) {
                     QuanLyNguoiDung qlyNguoiDung = new QuanLyNguoiDung();
-                    qlyNguoiDung.setVisible(true);
+                    qlyNguoiDung.setVisible(true); // mở menu người dùng
+                    this.setVisible(false);
                 }
-                // Dừng vòng lặp khi tìm thấy người dùng hợp lệ
-//                this.setVisible(false);
+
                 return;
                 }
         }
 
         if (!isLoggedIn) {
-            JOptionPane.showMessageDialog(this, "Tên Đăng Nhập Hoặc Mật Khẩu Không Hợp Lệ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tên Đăng Nhập Hoặc Mật Khẩu Không Chính Xác", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed

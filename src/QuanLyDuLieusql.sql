@@ -24,7 +24,7 @@ CREATE TABLE hoa_don(
 	ma_hoa_don Nvarchar(50) primary key,
 	ma_khach_hang Nvarchar(50),              
     ngay_lap Nvarchar(15),
-	tong_tien float ,
+	tong_tien DECIMAL(18, 2),
     FOREIGN KEY (ma_khach_hang) REFERENCES khach_hang(ma_khach_hang),
 );
 
