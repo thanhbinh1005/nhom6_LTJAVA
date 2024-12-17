@@ -58,6 +58,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Lấy Lại Mật Khẩu");
@@ -69,6 +70,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
         txtHoTen.setText("Họ Tên");
 
         btnXacNhanSua.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnXacNhanSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login.png"))); // NOI18N
         btnXacNhanSua.setText("Xác Nhận");
         btnXacNhanSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +79,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
         });
 
         btnQuayLai.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnQuayLai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cancel.png"))); // NOI18N
         btnQuayLai.setText("Quay Lại");
         btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +88,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
         });
 
         btnDoiMK.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnDoiMK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Update.png"))); // NOI18N
         btnDoiMK.setText("Đổi MK");
         btnDoiMK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +109,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(100, 100, 100)
+                .addGap(65, 65, 65)
                 .addComponent(btnQuayLai)
                 .addGap(16, 16, 16))
             .addGroup(layout.createSequentialGroup()
@@ -129,8 +133,8 @@ public class QuenMatKhau extends javax.swing.JFrame {
                                         .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                         .addComponent(txtTenNguoiDungORXacNhan))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(192, 192, 192)
+                        .addComponent(btnDoiMK, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnXacNhanSua)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -157,9 +161,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDoiMK)
-                    .addComponent(btnXacNhanSua))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnXacNhanSua)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDoiMK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3)))
                 .addGap(14, 14, 14))
         );
 
@@ -177,6 +183,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
         String hoten = txtTenNguoiDungORXacNhan.getText().trim();
         StringBuilder sb = new StringBuilder();
         
+        if(tentk.length() < 8) {
+            JOptionPane.showMessageDialog(this,"Yêu cầu nhập mật khẩu tối thiểu 8 kí tự.");
+            return;
+        }
+        
         if(tentk.equals(""))
             sb.append("Nhập Mật Khẩu Mới\n");
         if(!hoten.equalsIgnoreCase(tentk))
@@ -185,7 +196,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, sb.toString(),"Error",JOptionPane.ERROR_MESSAGE);
             return;
         } 
-        
+
         ctlerkh.upadteMk(makh, hoten);
         
         qly.loadKhachHangFromDB();

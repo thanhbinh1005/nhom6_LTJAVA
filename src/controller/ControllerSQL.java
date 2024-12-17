@@ -31,7 +31,7 @@ public class ControllerSQL {
             pst.setString(6, sdt);
             pst.setString(7, diaChi);
             pst.executeUpdate(); // lệnh thực thi câu lệnh
-            JOptionPane.showMessageDialog(null, "Khách Hàng Đã Được Thêm!");
+//            JOptionPane.showMessageDialog(null, "Khách Hàng Đã Được Thêm!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Lỗi khi thêm khách hàng!");
@@ -189,7 +189,7 @@ public class ControllerSQL {
             pst.setDouble(4, gia);
             // lệnh thực thi câu lệnh
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Sản phẩm Đã Được Thêm!");
+            JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công.!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Lỗi Khi Lưu Sản Phẩm","Lỗi",JOptionPane.ERROR_MESSAGE);
@@ -209,7 +209,7 @@ public class ControllerSQL {
             
             int rowAffected = pst.executeUpdate(); // lấy dòng thay đổi true = 1
             if(rowAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Đã Xóa Sản Phẩm Khỏi database!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Xóa Thành Công!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
             } else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!","Lỗi",JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
@@ -233,9 +233,9 @@ public class ControllerSQL {
             pst.setString(4, maSp);
             // lệnh thực thi câu lệnh
             int rowAffected = pst.executeUpdate(); // lấy dòng bị thay đổi
-            if(rowAffected > 0) // kiểm tra = 1 => đã thay đổi dữ liệu
-                JOptionPane.showMessageDialog(null, "Sản Phẩm Đã Được Sửa!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
-            else
+            if(rowAffected > 0){ // kiểm tra = 1 => đã thay đổi dữ liệu
+                JOptionPane.showMessageDialog(null, "Cập Nhật Thành Công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            }else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!", "Lỗi" ,JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -327,7 +327,7 @@ public class ControllerSQL {
             pst.setString(1, mahoadon);
             int rowAffected = pst.executeUpdate();
             if(rowAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Đã Xóa hóa đơn Khỏi database!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Đã Xóa hóa đơn Khỏi database!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
             } else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy hóa đơn Trong Danh Sách Bộ Nhớ!","Lỗi",JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
@@ -347,7 +347,7 @@ public class ControllerSQL {
             pst.setString(1, mahoadon);
             int rowAffected = pst.executeUpdate();
             if(rowAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Đã Xóa Thông Tin hóa đơn Khỏi database!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Đã Xóa Thông Tin hóa đơn Khỏi database!","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
                 check = true;
             } else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy hóa đơn Trong Danh Sách Bộ Nhớ!","Lỗi",JOptionPane.ERROR_MESSAGE);
@@ -373,9 +373,9 @@ public class ControllerSQL {
             pst.setString(2, maSP);
             
            int rowAffected = pst.executeUpdate(); // lấy dòng bị thay đổi
-            if(rowAffected > 0) // kiểm tra = 1 => đã thay đổi dữ liệu
-                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
-            else
+            if(rowAffected > 0) { // kiểm tra = 1 => đã thay đổi dữ liệu
+//                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            }else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!", "Lỗi" ,JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -390,9 +390,9 @@ public class ControllerSQL {
             pst.setString(2, maSP);
             
            int rowAffected = pst.executeUpdate(); // lấy dòng bị thay đổi
-            if(rowAffected > 0) // kiểm tra = 1 => đã thay đổi dữ liệu
-                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
-            else
+            if(rowAffected > 0){ // kiểm tra = 1 => đã thay đổi dữ liệu
+//                JOptionPane.showMessageDialog(null, "Thay đổi số lượng thành công!","Thành Công",JOptionPane.INFORMATION_MESSAGE);
+            }else
                 JOptionPane.showMessageDialog(null, "Không Tìm Thấy Sản Phẩm Trong Danh Sách Bộ Nhớ!", "Lỗi" ,JOptionPane.ERROR_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();

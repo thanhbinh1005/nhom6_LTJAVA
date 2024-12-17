@@ -60,6 +60,8 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+
         jLabel9.setText("Tên Đăng Nhập");
 
         jLabel10.setText("Họ Tên");
@@ -68,6 +70,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
         jLabel12.setText("Địa Chỉ");
 
+        btnLuuKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login.png"))); // NOI18N
         btnLuuKhachHang.setText("Đăng Ký");
         btnLuuKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +85,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
         cbxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
 
+        btnResetKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/reset.png"))); // NOI18N
         btnResetKH.setText("Reset");
         btnResetKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +95,8 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
 
         jLabel1.setText("Mật Khẩu");
 
-        btnReturn.setText("Exit");
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cancel.png"))); // NOI18N
+        btnReturn.setText("Quay Lại");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnActionPerformed(evt);
@@ -107,7 +112,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(122, 122, 122)
+                        .addGap(85, 85, 85)
                         .addComponent(btnReturn)
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -128,8 +133,8 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnLuuKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(btnLuuKhachHang)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnResetKH, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cbxGioiTinh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,12 +237,16 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
         } else
         txtMatKhau.setBackground(Color.white);       
         if(sb.length()>0){
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ và chính xác thông tin!","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin cần thiết!","Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(matKhau.length() < 8){
+            JOptionPane.showMessageDialog(this, "Yêu cầu mật lớn hơn 8 ký tự!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         
         if(ctlerKhachHang.checkTrungMaKH(maKhachHang)) {
-            JOptionPane.showMessageDialog(this, "Mã khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tài khoản đã tồn tại vui lòng chọn Mã khách hàng khác!", "Error", JOptionPane.ERROR_MESSAGE);
             txtMaKH.setText("");
             return;
         }
@@ -247,7 +256,7 @@ public class DangKyTaiKhoan extends javax.swing.JFrame {
         //Thêm khách hàng vào danh sách khách hàng nhưng phải kiểm tra có trùng mã kh không
         KhachHang kh = new KhachHang(maKhachHang, matKhau, hoTenKhachHang, chucVu, gioiTinh, soDienThoai, diaChi);
         dsKhachHang.add(kh);
-        JOptionPane.showMessageDialog(this, "Lưu Khách Hàng Thành Công","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Đăng ký tài khoản thành công","Thông Báo",JOptionPane.INFORMATION_MESSAGE);
 
         
         //reset ô txt
